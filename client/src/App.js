@@ -1,10 +1,11 @@
 import './App.css';
 import {useEffect, useState} from 'react'
+import Highcharts from 'highcharts'
+import HighchartsReact from 'highcharts-react-official'
 
 function App() {
 
   const [dates, setDates] = useState([])
-
 
   useEffect(()=>{
     fetch('http://localhost:8080/dates')
@@ -12,13 +13,25 @@ function App() {
       .then(dates => setDates(dates))
   }, [])
 
+  const options = {
+    title: {
+      text: 'Positivity Rate'
+    },
+    xAxis:{
+      type: 'datetime'
+    },
+    series: [{
+      name: "Date",
+      data: dates.map(date => [Date.parse(date.date), date.positivityRate])
+    }]
+  }
+   
   return (
-    <div className="App">
-      <pre>
-        {JSON.stringify(dates, null, 2)}
-      </pre>
-    </div>
-  );
+    <HighchartsReact
+      highcharts={Highcharts}
+      options={options}
+    />
+  )
 }
 
 export default App;
