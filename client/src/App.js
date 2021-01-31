@@ -28,8 +28,14 @@ function App() {
       showInLegend: false,
       name: "Positivity Rate",
       data: dates.map(date => [Date.parse(date.date), date.positivityRate])
+    },
+    {
+      showInLegend: false,
+      name: "WHO measure",
+      color: "orange",
+      data: dates.map(date => [Date.parse(date.date), 5])
     }],
-    
+
   }
 
   return (
