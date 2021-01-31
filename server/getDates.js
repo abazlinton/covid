@@ -20,15 +20,16 @@ function SerialDateToJSDate(serialDate, offsetUTC) {
 
 function addMovingAverage(dates){
     return dates.map((date, index, origDates) => {
-        if (index < 7){
+        if (index < 6){
             return {...date, sevenDayMovingAverage: null}
         }
-        return {...date, sevenDayMovingAverage: getAverage(origDates.slice(index -7, index).map(date => date.positivityRate))}
+        return {...date, sevenDayMovingAverage: getAverage(origDates.slice(index - 6, index + 1).map(date => date.positivityRate))}
 
     })
 }
 
 function getAverage(numbers) {
+    console.log(numbers.length)
     const sum = numbers.reduce((number, sum) => sum + number)
     return sum / numbers.length
 }
