@@ -8,7 +8,7 @@ const dates = datesWithValidData.map(getDateAndPositivityRate)
 function getDateAndPositivityRate(row) {
     return {
         date: SerialDateToJSDate(Object.values(row)[0], -24),
-        positivityRate: row.__EMPTY_10 * 100
+        positivityRate: Math.round((row.__EMPTY_10 * 100) * 10) / 10
     }   
 }
 
