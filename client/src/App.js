@@ -15,10 +15,15 @@ function App() {
 
   const options = {
     title: {
-      text: 'Positivity Rate'
+      text: 'Percentage of positive tests',
+      
     },
     xAxis: {
-      type: 'datetime'
+      type: 'datetime',
+      labels: {
+        rotation: 300
+      },
+      tickInterval: 1000 * 60 * 60 * 24 * 7
     },
     yAxis: {
       title: false,
