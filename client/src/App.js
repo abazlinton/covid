@@ -34,6 +34,12 @@ function App() {
       name: "WHO measure",
       color: "orange",
       data: dates.map(date => [Date.parse(date.date), 5])
+    },
+    {
+      showInLegend: false,
+      name: "Seven-day average",
+      color: "red",
+      data: dates.map(date => [Date.parse(date.date), date.sevenDayMovingAverage])
     }],
 
   }
