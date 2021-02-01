@@ -1,23 +1,22 @@
-import './App.css';
 import { useEffect, useState } from 'react'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
-import AgeChart from './AgeChart';
 
-function App() {
+const AgeChart = function () {
 
   const [dates, setDates] = useState([])
 
+
   useEffect(() => {
-    fetch('http://localhost:8080/dates')
+    fetch('http://localhost:8080/85plus')
       .then(res => res.json())
       .then(dates => setDates(dates))
   }, [])
 
   const options = {
     title: {
-      text: 'Percentage of positive tests',
-      
+      text: 'Positive Tests 85+',
+
     },
     xAxis: {
       type: 'datetime',
@@ -27,38 +26,27 @@ function App() {
       tickInterval: 1000 * 60 * 60 * 24 * 7
     },
     yAxis: {
-      title: false,
-      tickInterval: 2
+      title: false
     },
     series: [{
       showInLegend: false,
-      name: "Positivity Rate",
-      data: dates.map(date => [Date.parse(date.date), date.positivityRate])
-    },
-    {
-      showInLegend: false,
-      name: "WHO measure",
-      color: "orange",
-      data: dates.map(date => [Date.parse(date.date), 5])
+      name: "Positive Tests",
+      data: dates.map(date => [Date.parse(date.date), date.positiveTests])
     },
     {
       showInLegend: false,
       name: "Seven-day average",
       color: "red",
       data: dates.map(date => [Date.parse(date.date), date.sevenDayMovingAverage])
-    }],
-
+    }]
   }
 
   return (
-    <>
     <HighchartsReact
       highcharts={Highcharts}
       options={options}
     />
-    <AgeChart/>
-    </>
   )
 }
 
-export default App;
+export default AgeChart
